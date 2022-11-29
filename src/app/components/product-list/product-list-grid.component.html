@@ -1,0 +1,20 @@
+<div class="main-content">
+    <div>
+        <h1 class="m-3">Category: {{productCategories[currentCategoryId-1].categoryName}}</h1>
+    </div>
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- loop over the collection of products-->
+                <div *ngFor="let tempProduct of products" class="col-md-3">
+                    <div class="product-box">
+                        <img src="{{tempProduct.imageUrl}}" class="img-responsive" alt="">
+                        <h1 class="block-inline">{{tempProduct.name}}</h1>
+                        <div class="price">{{tempProduct.unitPrice | currency:'USD'}}</div>
+                        <a href="" class="primary-btn">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
