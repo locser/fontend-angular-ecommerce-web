@@ -1,8 +1,8 @@
 # AngularEcommerce
->BackEnd: 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.7.
-
+- BackEnd: 
 ## Development server
+- Intall ng-bootstrap: `ng add @angular/localize` and `npm install @ng-bootstrap/ng-bootstrap@13.0.0`
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 

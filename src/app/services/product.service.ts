@@ -16,7 +16,7 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getProduct(theProductId: number) : Observable<Product> {
+  getProduct(theProductId: number): Observable<Product> {
     // need to build URL based on product id 
     const productUrl = `${this.baseUrl}/${theProductId}`;
 
@@ -29,12 +29,34 @@ export class ProductService {
     return this.getProducts(searchUrl);
   }
 
+  getProductListPaginate(thePage: number,
+    thePageSize: number
+    , theCategoryId: number
+  ): Observable<getResponseProducts> {
+    // need to build URL based on category id, page  and size 
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
+      + `&page=${thePage}&size=${thePageSize}`;
+
+    return this.httpClient.get<getResponseProducts>(searchUrl);
+  }
+
   searchProducts(theKeyword: string): Observable<Product[]> {
     // need to build URL base on the keyword
     const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
 
     return this.getProducts(searchUrl);
   }
+
+  searchProductsPaginate(theKeyword: string,
+    thePage: number,
+    thePageSize: number): Observable<getResponseProducts                                               > {
+    // need to build URL base on the keyword, page and size
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`
+    + `&page=${thePage}&size=${thePageSize}`;
+
+    return this.httpClient.get<getResponseProducts>(searchUrl);
+  }
+
 
   private getProducts(searchUrl: string): Observable<Product[]> {
     return this.httpClient.get<getResponseProducts>(searchUrl).pipe(map(response => response._embedded.products));
@@ -53,6 +75,12 @@ export class ProductService {
 interface getResponseProducts {
   _embedded: {
     products: Product[];
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
   }
 }
 
