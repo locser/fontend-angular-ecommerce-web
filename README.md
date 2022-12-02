@@ -1,6 +1,12 @@
 # AngularEcommerce
+<<<<<<< HEAD
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.7.
 - BackEnd: 
+=======
+>[BackEnd](https://github.com/locser/E-Commerce-Web)
+>This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.7.
+
+>>>>>>> bc6d9538d0765e2112414c87e3d905d6ffd6a006
 ## Development server
 - Intall ng-bootstrap: `ng add @angular/localize` and `npm install @ng-bootstrap/ng-bootstrap@13.0.0`
 
