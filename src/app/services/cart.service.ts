@@ -1,4 +1,3 @@
-import { TemplateBindingParseResult } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CartItem } from '../common/cart-item';
@@ -10,7 +9,7 @@ export class CartService {
 
   cartItems: CartItem[] = [];
 
-  toltalPrice: Subject<number> = new Subject<number>();
+  totalPrice: Subject<number> = new Subject<number>();
   totalQuantity: Subject<number> = new Subject<number>();
 
   constructor() { }
@@ -45,32 +44,55 @@ export class CartService {
   }
 
   computeCartTotals() {
-    let toltalPriceValue: number = 0;
+    let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
 
     for (let currentCartItem of this.cartItems) {
       totalQuantityValue += currentCartItem.quantity;
-      toltalPriceValue += currentCartItem.unitPrice * currentCartItem.quantity;
+      totalPriceValue += currentCartItem.unitPrice * currentCartItem.quantity;
     }
 
     // push the new value 
     // .next() will  publish  envents to all subscribers  
 
-    this.toltalPrice.next(toltalPriceValue);
+    this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
 
     //log(cart)
-    this.logCartData(toltalPriceValue, totalQuantityValue);
+    // this.logCartData(totalPriceValue, totalQuantityValue);
   }
 
+  // logCartData(totalPriceValue: number, totaQuantityValue: number) {
+  //   for (let currentCartItem of this.cartItems) {
+  //     totaQuantityValue += currentCartItem.quantity;
+  //     totalPriceValue += currentCartItem.unitPrice;
+  //     console.log(currentCartItem)
+  //   }
+  // }
 
-  logCartData(toltalPriceValue: number, totalQuantityValue: number) {
-    for (let currentCartItem of this.cartItems) {
-      totalQuantityValue += currentCartItem.quantity;
-      toltalPriceValue += currentCartItem.unitPrice;
-      console.log(currentCartItem)
+  getCartItems() : CartItem[]{
+    return this.cartItems;
+  }
+
+  decrementQuantity(theCartItem: CartItem) {
+    theCartItem.quantity--;
+
+    if (theCartItem.quantity===0){
+      this.remove(theCartItem);
+    }
+    else{
+      this.computeCartTotals();
+    }
+  }
+  
+  remove(theCartItem: CartItem) {
+    const itemIndex  = this.cartItems.findIndex(tempCartItem => tempCartItem.id=== theCartItem.id);
+
+    if(itemIndex >-1){
+      this.cartItems.splice(itemIndex,1);
+      this.computeCartTotals
+    
     }
   }
 
-  
 }
