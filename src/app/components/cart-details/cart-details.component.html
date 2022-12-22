@@ -146,13 +146,13 @@
   
                     <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
                       <p class="mb-2">Total (tax included)</p>
-                      <p class="mb-2">$26.48</p><!--tax included-->
+                      <p class="mb-2">{{totalPrice | currency :'USD'}}</p><!--tax included-->
                     </div>
   
                     <button routerLink="/checkout" type="button" class="btn btn-primary btn-block btn-lg">
                       <div class="d-flex justify-content-between">
                         <span>Checkout</span>
-                        <span>$26.48</span>
+                        <span>{{totalPrice | currency :'USD'}}</span>
                       </div>
                     </button>
   
