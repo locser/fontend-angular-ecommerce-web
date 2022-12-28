@@ -22,9 +22,9 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 
 import {
-  OktaAuthModule,
-  OktaCallbackComponent,
   OKTA_CONFIG,
+  OktaAuthModule,
+  OktaCallbackComponent
 } from '@okta/okta-angular';
 import { OktaAuth } from '@okta/okta-auth-js';
 
@@ -68,9 +68,9 @@ const routes: Routes = [
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
-    OktaAuthModule,
+    OktaAuthModule
   ],
-  providers: [ProductService, {provide: OKTA_CONFIG, useValue: {oktaAuth}}],
+  providers: [ProductService,{ provide: OKTA_CONFIG, useValue: {oktaAuth} }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
