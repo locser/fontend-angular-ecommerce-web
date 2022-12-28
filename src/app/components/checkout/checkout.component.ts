@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Country } from 'src/app/common/country';
 import { Order } from 'src/app/common/order';
@@ -48,34 +53,40 @@ export class CheckoutComponent implements OnInit {
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
-        firstName: new FormControl('', [Validators.required,
-        Validators.minLength(2),
-        ShopValidators.notOnlyWhitespace,
+        firstName: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          ShopValidators.notOnlyWhitespace,
         ]),
-        lastName: new FormControl('', [Validators.required,
-        Validators.minLength(2),
-        ShopValidators.notOnlyWhitespace,
+        lastName: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          ShopValidators.notOnlyWhitespace,
         ]),
-        email: new FormControl('', [Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        email: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
         ]),
       }),
 
       shippingAddress: this.formBuilder.group({
-        street: new FormControl('', [Validators.required,
-        Validators.minLength(2),
-        ShopValidators.notOnlyWhitespace,
+        street: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          ShopValidators.notOnlyWhitespace,
         ]),
-        city: new FormControl('', [Validators.required,
-        Validators.minLength(2),
-        ShopValidators.notOnlyWhitespace,
+        city: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          ShopValidators.notOnlyWhitespace,
         ]),
         state: new FormControl('', [Validators.required]),
 
         country: new FormControl('', [Validators.required]),
-        zipcode: new FormControl('', [Validators.required,
-        Validators.minLength(6),
-        ShopValidators.notOnlyWhitespace,
+        zipcode: new FormControl('', [
+          Validators.required,
+          Validators.minLength(6),
+          ShopValidators.notOnlyWhitespace,
         ]),
       }),
 
@@ -101,15 +112,18 @@ export class CheckoutComponent implements OnInit {
       }),
       creditCard: this.formBuilder.group({
         cardType: new FormControl('', [Validators.required]),
-        nameOnCard: new FormControl('', [Validators.required,
-        Validators.minLength(2),
-        ShopValidators.notOnlyWhitespace,
+        nameOnCard: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          ShopValidators.notOnlyWhitespace,
         ]),
-        cardNumber: new FormControl('', [Validators.required,
-        Validators.pattern('[0-9]{16}'),
+        cardNumber: new FormControl('', [
+          Validators.required,
+          Validators.pattern('[0-9]{16}'),
         ]),
-        securityCode: new FormControl('', [Validators.required,
-        Validators.pattern('[0-9]{3}'),
+        securityCode: new FormControl('', [
+          Validators.required,
+          Validators.pattern('[0-9]{3}'),
         ]),
         expirationMonth: [''],
         expirationYear: [''],
@@ -213,8 +227,6 @@ export class CheckoutComponent implements OnInit {
     return this.checkoutFormGroup.get('creditCard.securityCode');
   }
 
-
-
   onSubmit() {
     console.log('Handling the submit button');
 
@@ -249,7 +261,6 @@ export class CheckoutComponent implements OnInit {
     // purchase.customer
     purchase.customer = this.checkoutFormGroup.controls['customer'].value;
 
-
     //populate purchase - shipping address
     purchase.shippingAddress =
       this.checkoutFormGroup.controls['shippingAddress'].value;
@@ -281,22 +292,19 @@ export class CheckoutComponent implements OnInit {
     purchase.orderItems = orderItemsShort;
 
     // call rest APi
-    this.checkoutService.placeOrder(purchase).subscribe(
-      {
-        next: response => {
-          alert(`Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`);
+    this.checkoutService.placeOrder(purchase).subscribe({
+      next: (response) => {
+        alert(
+          `Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`
+        );
 
-          // reset cart
-          this.resetCart();
-
-        },
-        error: err => {
-          alert(`There was an error: ${err.message}`);
-        }
-
-
-      }
-    );
+        // reset cart
+        this.resetCart();
+      },
+      error: (err) => {
+        alert(`There was an error: ${err.message}`);
+      },
+    });
 
     // console.log(this.checkoutFormGroup.get('customer').value);
   }
@@ -306,12 +314,11 @@ export class CheckoutComponent implements OnInit {
     this.cartService.totalPrice.next(0);
     this.cartService.totalQuantity.next(0);
 
-    // reset the form 
+    // reset the form
     this.checkoutFormGroup.reset();
 
     //navigate back to the porducts page TODO: m
-    this.router.navigateByUrl("/product");
-
+    this.router.navigateByUrl('/product');
   }
 
   copyShippingAddressToBillingAddress(event) {
